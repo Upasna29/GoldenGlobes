@@ -20,4 +20,6 @@ for line in tweets_file:
 
 numpy.savetxt("tweetsarray.txt", tweets_array, fmt = '%s')
 numpy.save("tweetsarray.npy", tweets_array)
+
+# Access stored array:
 # result_array = numpy.load("tweetsarray.npy")
