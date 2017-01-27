@@ -19,3 +19,5 @@ for line in tweets_file:
         tweets_array.append(tweet)
 
 numpy.savetxt("tweetsarray.txt", tweets_array, fmt = '%s')
+numpy.save("tweetsarray.npy", tweets_array)
+# result_array = numpy.load("tweetsarray.npy")
