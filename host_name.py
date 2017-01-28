@@ -27,7 +27,7 @@ def determine_host(key_words, tweets):
           twitter_handles[word] += 1
         else:
           twitter_handles[word] = 0
-  return twitter_handles
+  return max_count(twitter_handles)
 
 
 def max_count(twitter_handles):
@@ -42,7 +42,6 @@ def max_count(twitter_handles):
   return host_handle
     
 
-possible_hosts = determine_host(['cold', 'open', 'host'], tweets)
-host = max_count(possible_hosts)
+host = determine_host(['cold', 'open', 'host'], tweets)
 
 print(host)
