@@ -16,32 +16,49 @@ def filter_tweets(key_words, tweets):
         break
   return relevant_tweets
 
+
+## determine_host
+# Array of Str, Array of Dicts -> Str
+#
+# Returns the name most frequent bigram from the tweets filtered by key words.
 def determine_host(key_words, tweets):
   relevant_tweets = filter_tweets(key_words, tweets)
-  twitter_handles = {}
+  bigrams_count = {}
 
   for tweet in relevant_tweets:
-    for word in tweet['tweet_text'].split():
-      if word.startswith('@'):
-        if twitter_handles.has_key(word):
-          twitter_handles[word] += 1
-        else:
-          twitter_handles[word] = 0
-  return max_count(twitter_handles)
+    # Make each tweet into bigram
+    bigrams = zip(tweet['tweet_text'].split(), tweet['tweet_text'].split()[1:])
 
+    for bigram in bigrams:
+        # Only count the bigram if both words contain capitol letters
+        if (not (bigram[0].isupper() or 
+                 bigram[0].islower() or
+                 bigram[1].isupper() or 
+                 bigram[1].islower())):
+          if bigrams_count.has_key(bigram):
+            bigrams_count[bigram]+=1
 
-def max_count(twitter_handles):
+          else:
+            bigrams_count[bigram]=1
+
+  return max_count(bigrams_count)
+
+## max_count
+# Dict -> Str
+#
+# Returns the key with the largest associated value pair
+def max_count(bigrams_count):
   max_count = 0
-  host_handle = ''
+  host = ''
 
-  for twitter_handle in twitter_handles.keys():
-    if twitter_handles[twitter_handle] > max_count:
-      max_count = twitter_handles[twitter_handle]
-      host_handle = twitter_handle
+  for bigram in bigrams_count.keys():
+    if bigrams_count[bigram] > max_count:
+      max_count = bigrams_count[bigram]
+      host = bigram
 
-  return host_handle
+  return (host[0] + ' ' + host[1])
     
 
-host = determine_host(['cold', 'open', 'host'], tweets)
+host = determine_host(['host'], tweets)
 
 print(host)
