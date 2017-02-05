@@ -92,7 +92,7 @@ def categoryCount(c):
     for each in categories:
         catecount.append((counts[each],each))
 
-    catecount.sort()
+    catecount.sort(reverse = True)
     return catecount
 
 def checkUppers(s):
