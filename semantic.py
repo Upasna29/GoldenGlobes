@@ -1,16 +1,13 @@
 import numpy
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from vaderSentiment import SentimentIntensityAnalyzer
 from host_name import filter_tweets
 import matplotlib.pyplot as plt
 
 corpus = numpy.load("tweetsarray.npy")
-toy_corpus = corpus[5000:8000]
 
 
 def evaluate_reaction(identifiers, corpus):
     relevant_twts = [twt_dict['tweet_text'] for twt_dict in filter_tweets(identifiers, corpus)]
-    # note, requires the vader lexicon stored in .../nltk_data/sentiment/vader_lexicon.zip...
-    #include this file in the final project
     num_twts = len(relevant_twts)
     metrics = numpy.ndarray(shape=(num_twts, 4))
     sid = SentimentIntensityAnalyzer()
@@ -27,7 +24,7 @@ def evaluate_reaction(identifiers, corpus):
     return metrics
 
 def plot_distributions(metrics, search_term):
-    plt.figure()
+    # plt.figure()
     ttl = "Response Sentiment Distribution for " + search_term
     f, axarr = plt.subplots(2, 2)
     plt.suptitle(ttl)
@@ -43,8 +40,8 @@ def plot_distributions(metrics, search_term):
     print numpy.average(metrics, axis=0)
     return metrics
 
-print 'Jimmy Fallon scores'
 jfm = evaluate_reaction(['Jimmy', 'Fallon', 'jimmyfallon'], corpus)
+plot_distributions(jfm, "Jimmy Fallon")
 # print 'Meryll Streep scores'
 # evaluate_reaction(['Meryll', 'Streep', 'meryllstreep'], corpus)
 # print 'Ryan Gosling scores'
