@@ -58,7 +58,10 @@ def max_count(bigrams_count):
 
   return (host[0] + ' ' + host[1])
     
-
+##
+# Future iterations of this project could train on tweets from other award ceremonies to 
+# learn keywords associated with hosts
+##
 host = determine_host(['host'], tweets)
 
-print(host)
+print('The host of this award ceremony was: ' + host)
