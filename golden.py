@@ -11,18 +11,6 @@ constant = 0.042#0.03409090909
 
 tweets = numpy.load("tweetsarray.npy")
 
-f = open('globestweets.txt','r')
-f = list(f)
-#print len(f)
-f1 = open('goldenglobes.tab','r')
-f1 = list(f1)
-#print len(f1)
-"""for each in tweets:
-    for i,letter in enumerate(each['tweet_text']):
-        if(letter not in ['@','#']):
-            each['tweet_text'] = each['tweet_text'][:i] + letter.translate(None, string.punctuation) + each['tweet_text'][i+1:]
-for each in tweets:
-    each['tweet_text']= each['tweet_text'].replace('  ', ' ')"""
 
 def similarRatio(a, b):
     """return percent simlarity between two strings
@@ -92,7 +80,7 @@ def categoryCount(c):
     for each in categories:
         catecount.append((counts[each],each))
 
-    catecount.sort()
+    catecount.sort(reverse = True)
     return catecount
 
 def checkUppers(s):
@@ -119,47 +107,6 @@ def checkNameSize(s):
             if smallest > i-index:
                 smallest = i-index
     return smallest < 2
-
-
-
-
-
-"""
-handles = list()
-#print len(f)
-for each in  f:
-    handles = handles +getHandle(each)
-
-usernames=set(handles)
-usernames = list(usernames)
-usernames.sort()
-#print usernames
-
-categories = list()
-for each in f:
-    temp = getCategory(each)
-    if(temp != None):
-        categories= categories+getCategory(each)
-
-#print categories
-
-count = 0
-for each in f1:
-
-    tweet = each.split(' ')
-    for i, word in enumerate(tweet):
-        if word in ['host']:
-            count = count+1
-
-
-#print count
-"""
-
-
-
-
-
-
 
 result = list()
 catdict = {}
@@ -191,30 +138,8 @@ for each in tweets:
         if 'goes to' in temp:
             final.append(temp)
 
-
-
-
-
-
 freqCount = categoryCount(result)
-"""for each in catdict:
-    print each
-    for i in catdict[each].keys():
-        print '-'+ i+str(catdict[each][i])
 
-for each in freqCount:
-    temp = ""
-    for i in each[1]:
-        if len(temp)>0:
-            temp = temp + ' '+ i
-        else:
-            temp = i
-
-    if(temp in catdict.keys() and "goes to" in temp):
-        final.append(temp)
-        print temp +" ~"+ str(each[0])+'~'
-        for i in catdict[temp].keys():
-            print '-'+ i+" (" +str(catdict[temp][i])+')' """
 awards = list()
 names = list()
 finaldict = {}
@@ -251,9 +176,6 @@ for each in names:
     namesFreq.append(tuple(each.split(" ")))
 namesFreq = categoryCount(namesFreq)
 
-#for each in namesFreq:#
-#    print each
-
 winners = list()
 
 for each in namesFreq:
@@ -262,14 +184,8 @@ for each in namesFreq:
             if checkSimilarOverList(each[1][0],winners):
                 winners.append(re.sub(r"(\w)([A-Z])", r"\1 \2", each[1][0]))
 
-#for each in winners:
-#    print each
-awardsSet = set(awards)
-awardsSet = list(awardsSet)
-awardsFreq = list()
-for each in awards:
-    awardsFreq.append(tuple(each.split(" ")))
-awardsFreq = categoryCount(awardsFreq)
+
+
 
 for each in winners:
     print finaldict[each].keys()[0] +each

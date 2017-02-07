@@ -1,1 +1,5 @@
 goldenglobes.tab
+.DS_Store
+ globestweets.txt
+ tweetsarray.npy
+ tweetsarray.txt
