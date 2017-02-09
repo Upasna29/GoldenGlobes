@@ -40,7 +40,6 @@ def determine_host(key_words, tweets):
 
           else:
             bigrams_count[bigram]=1
-
   return max_count(bigrams_count)
 
 ## max_count
@@ -65,3 +64,5 @@ def max_count(bigrams_count):
 host = determine_host(['host'], tweets)
 
 print('The host of this award ceremony was: ' + host)
+
+print(determine_nominee(['Best'], tweets))

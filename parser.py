@@ -15,7 +15,7 @@ for line in tweets_file:
         prev_line = line
     else:
         prev_line = ""
-        tweet = {"tweet_text": tokens[0], "tweet_ID": tokens[3]}
+        tweet = {"tweet_text": tokens[0], "user_ID": tokens[2], "tweet_ID": tokens[3]}
         tweets_array.append(tweet)
 
 numpy.savetxt("tweetsarray.txt", tweets_array, fmt = '%s')
