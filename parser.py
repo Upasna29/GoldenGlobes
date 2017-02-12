@@ -5,7 +5,7 @@ import numpy
 
 tweets_file = open("goldenglobes.tab", 'r');
 
-# Structure of dictionary: {tweet_text: "", tweet_ID: ""}
+# Structure of dictionary: {tweet_text: "", tweet_ID: "", user_ID: ""}
 tweets_array = []
 prev_line = ""
 for line in tweets_file:
@@ -15,7 +15,7 @@ for line in tweets_file:
         prev_line = line
     else:
         prev_line = ""
-        tweet = {"tweet_text": tokens[0], "user_ID": tokens[2], "tweet_ID": tokens[3]}
+        tweet = {"tweet_text": tokens[0], "tweet_ID": tokens[3], "user_ID": tokens[2]}
         tweets_array.append(tweet)
 
 numpy.savetxt("tweetsarray.txt", tweets_array, fmt = '%s')

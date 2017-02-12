@@ -10,7 +10,7 @@ constant = 0.042#0.03409090909
 
 
 tweets = numpy.load("tweetsarray.npy")
-
+award_account_ID = '18667907'
 
 def similarRatio(a, b):
     """return percent simlarity between two strings
@@ -186,6 +186,16 @@ for each in namesFreq:
 
 
 
-
 for each in winners:
     print finaldict[each].keys()[0] +each
+
+gg_tweets = [t for t in tweets if t["user_ID"] == award_account_ID]
+to_find = re.compile('https://|\!|\.|at|is')
+
+for t in gg_tweets:
+    text = t["tweet_text"]
+    if ('present' or 'presents') in text:
+        name_start = text.find('Best ')
+        match_obj = to_find.search(text, name_start)
+        name_end = match_obj.start()
+        cat_substr = text[name_start:name_end]
