@@ -6,5 +6,8 @@ print ""
 print "Winners"
 execfile("golden.py")
 print ""
+print "Nominees"
+execfile("nominees.py")
+print ""
 print "Wildcard"
 execfile("semantic.py")

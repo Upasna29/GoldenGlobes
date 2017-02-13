@@ -1,4 +1,6 @@
 import numpy
+import math
+
 tweets = numpy.load("tweetsarray.npy")
 
 ## filter_tweets
@@ -7,7 +9,6 @@ tweets = numpy.load("tweetsarray.npy")
 # Returns an array of tweet objects (dicts) whose text component contains at least one of the key words.
 def filter_tweets(key_words, tweets):
   relevant_tweets = []
-
   for tweet in tweets:
     for key_word in key_words:
       # If the key word is in the text of the tweet, add it to the dict and break
@@ -15,7 +16,6 @@ def filter_tweets(key_words, tweets):
         relevant_tweets.append(tweet)
         break
   return relevant_tweets
-
 
 ## determine_host
 # Array of Str, Array of Dicts -> Str
