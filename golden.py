@@ -108,6 +108,17 @@ def checkNameSize(s):
                 smallest = i-index
     return smallest < 2
 
+def find_name(tweet_text):
+    names = []
+    bigrams = zip(tweet_text.split(" ")[:-1], tweet_text.split(" ")[1:])
+
+    for bigram in bigrams:
+        if bigram[0][0].isupper() and bigram[1][0].isupper():
+            name = bigram[0] + ' ' + bigram[1]
+            names.append(name)
+
+    return names
+
 result = list()
 catdict = {}
 final = list()
@@ -185,17 +196,31 @@ for each in namesFreq:
                 winners.append(re.sub(r"(\w)([A-Z])", r"\1 \2", each[1][0]))
 
 
-
 for each in winners:
     print finaldict[each].keys()[0] +each
 
 gg_tweets = [t for t in tweets if t["user_ID"] == award_account_ID]
-to_find = re.compile('https://|\!|\.|at|is')
+to_find = re.compile('https://|\!|\.|at|is ')
+
 
 for t in gg_tweets:
     text = t["tweet_text"]
-    if ('present' or 'presents') in text:
+    names = []
+    if (('present' or 'presents') in text) and ('Best' in text):
+
         name_start = text.find('Best ')
         match_obj = to_find.search(text, name_start)
         name_end = match_obj.start()
         cat_substr = text[name_start:name_end]
+        if name_end != name_start:
+            text = text[:name_start] + text[name_end:]
+        else:
+            text = text[:name_start]
+        names = find_name(text)
+        names.extend(getHandle(text))
+
+        specifier = ''
+        if 'nomin' in text:
+            specifier = 'nomination to '
+        if len(names)!=0:
+            print 'Presenter(s) for ' + specifier + cat_substr + ': ' + ' '.join(names)
